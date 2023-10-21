@@ -1,5 +1,7 @@
 package com.example.up.entity;
 
+import com.example.up.entity.account.Account;
+import com.example.up.entity.account.DealType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,16 +10,14 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-public class Transaction {
+public class Transaction extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private Date transactionDate;
-    @OneToOne
-    private User sender;
-    @OneToOne
-    private User receiver;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_id")
+    private Account account;
     private Long amount;
+    @Enumerated(EnumType.STRING)
+    private DealType dealType;
     private String trackingCode;
 }

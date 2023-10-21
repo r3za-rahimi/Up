@@ -1,20 +1,22 @@
 package com.example.up.entity;
 
+import com.example.up.entity.account.Account;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
-public class User {
+public class User extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+
     private String userName;
     private String name;
     private String family;
-    @OneToOne(fetch = FetchType.EAGER)
-    private Card card;
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Account> account;
+
 }
