@@ -5,6 +5,7 @@ import com.example.up.entity.Card;
 import com.example.up.entity.Transaction;
 import com.example.up.entity.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.List;
 public class Account extends AbstractEntity {
 
     private Long accountNumber;
+    @Min(value = 100 , message = "account.balance")
     private Long balance;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
