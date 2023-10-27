@@ -18,6 +18,6 @@ public class UserDto extends AbstractDto {
     private String userName;
     private String name;
     private String family;
-    private List<Account> account;
+    private List<AccountDto> account;
 
 }

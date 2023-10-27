@@ -1,6 +1,7 @@
 package com.example.up.controller;
 
 import com.example.up.converter.BaseConverter;
+import com.example.up.exceptionhandler.ServiceException;
 import com.example.up.service.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +25,7 @@ public class AbstractController  <E,D , S extends AbstractService<? extends JpaR
 
     @GetMapping()
     @Transactional
-    public D get(Long id)  {
+    public D get(Long id) throws ServiceException {
         return converter.convertEntity(service.getById(id));
     }
     @PostMapping()

@@ -13,11 +13,12 @@ public class UserService extends AbstractService<UserRepository , User> {
     @Override
     public User insert(User user){
 
-        List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account((long) (Math.random() * 100000000000000L), 500L , user , null , Collections.EMPTY_LIST));
+//        List<Account> accounts = new ArrayList<>();
+//        accounts.add(new Account((long) (Math.random() * 100000000000000L), 500L , user , null , Collections.EMPTY_LIST));
+//
+//        user.setAccount(accounts);
 
-        user.setAccount(accounts);
-
+        user.getAccount().get(0).setUser(user);
        return repository.save(user);
     }
     @Override

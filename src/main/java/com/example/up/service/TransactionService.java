@@ -22,7 +22,7 @@ public class TransactionService extends AbstractService<TransactionRepository, T
     @Autowired
     private AccountService accountService;
 
-
+    @Transactional
     public String resolveTransaction(OperationDto operation) throws ServiceException {
 
 
@@ -34,6 +34,7 @@ public class TransactionService extends AbstractService<TransactionRepository, T
 
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void withdraw(OperationDto operation, String trackingCode) throws ServiceException {
 
         Account sender = accountService.getById(operation.getSenderAccountId());
@@ -56,8 +57,8 @@ public class TransactionService extends AbstractService<TransactionRepository, T
 
         accountService.insert(sender);
     }
-
-    public void deposit(OperationDto operation, String trackingCode) {
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void deposit(OperationDto operation, String trackingCode) throws ServiceException {
 
         Account receiver = accountService.getById(operation.getReceiverAccountId());
 

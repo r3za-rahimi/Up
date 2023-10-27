@@ -5,6 +5,7 @@ import com.example.up.dto.AccountDto;
 import com.example.up.dto.CardDto;
 import com.example.up.entity.Card;
 import com.example.up.entity.account.Account;
+import com.example.up.exceptionhandler.ServiceException;
 import com.example.up.service.AccountService;
 import com.example.up.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,14 @@ public class AccountController extends  AbstractController<Account, AccountDto, 
     public void addCardToAccount(@RequestBody @Validated  CardDto cardDto , @PathVariable Long id){
 
         service.addCartToAccount(cardConverter.convertDto(cardDto) , id);
+
+    }
+
+
+    @GetMapping("/charge/{id}/{balance}")
+    public void addCardToAccount( @PathVariable("id") Long id ,@PathVariable("balance") Long balance) throws ServiceException {
+
+        service.charge(id , balance);
 
     }
 

@@ -3,6 +3,7 @@ package com.example.up.service;
 import com.example.up.dto.CardDto;
 import com.example.up.entity.Card;
 import com.example.up.entity.account.Account;
+import com.example.up.exceptionhandler.ServiceException;
 import com.example.up.repository.AccountRepository;
 import com.example.up.repository.CardRepository;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,17 @@ public class AccountService extends AbstractService<AccountRepository, Account>{
         userAccount.setCard(card);
 
         repository.save(userAccount);
+
+    }
+
+    public void charge(Long id , Long balance) throws ServiceException {
+
+        Account account = getById(id);
+
+        account.setBalance(account.getBalance() + balance);
+
+        repository.save(account);
+
 
     }
 }
