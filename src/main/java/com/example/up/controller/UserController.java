@@ -17,9 +17,23 @@ public class UserController extends AbstractController<User , UserDto , UserServ
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") Long id){
+    public UserDto getUser(@PathVariable("id") Long id){
 
-      return  service.getById(id);
+      return  converter.convertEntity(service.getById(id));
+
+    }
+
+    @PutMapping
+    public UserDto getUser(@RequestBody UserDto userDto){
+
+        return  converter.convertEntity(service.updateUserName(userDto));
+
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeUser(@PathVariable("id") Long id){
+
+          service.removeById(id);
 
     }
 }

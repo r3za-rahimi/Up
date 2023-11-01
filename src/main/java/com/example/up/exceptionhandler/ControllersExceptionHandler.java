@@ -1,8 +1,10 @@
 package com.example.up.exceptionhandler;
 
+import com.example.up.service.ExceptionLogService.ExceptionLogService;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +24,9 @@ import java.util.Properties;
 public class ControllersExceptionHandler {
     private static final String[] LOCALES = {"EN", "FA"};
     private final Map<String, Properties> propertiesMap = new HashMap<>();
+
+    @Autowired
+    private ExceptionLogService logService;
 
     @PostConstruct
     public void init() throws IOException {
@@ -51,6 +56,13 @@ public class ControllersExceptionHandler {
         if (translate == null) {
             translate = properties.get(Exception.class.getName());
         }
+
+        logService.Insert(ExceptionLog
+                .builder()
+                .errormessage(String.valueOf(translate))
+                .dateTime(new Date())
+                .build());
+
         return ExceptionDto.builder()
                 .errorCode(700)
                 .message(String.valueOf(translate))
@@ -74,6 +86,12 @@ public class ControllersExceptionHandler {
         if (translate == null) {
             translate = properties.get(Exception.class.getName());
         }
+
+        logService.Insert(ExceptionLog
+                .builder()
+                .errormessage(String.valueOf(translate))
+                .dateTime(new Date())
+                .build());
         return ExceptionDto.builder()
                 .errorCode(600)
                 .message(String.valueOf(translate))
@@ -97,6 +115,12 @@ public class ControllersExceptionHandler {
         if (translate == null) {
             translate = properties.get(Exception.class.getName());
         }
+
+        logService.Insert(ExceptionLog
+                .builder()
+                .errormessage(String.valueOf(translate))
+                .dateTime(new Date())
+                .build());
         return ExceptionDto.builder()
                 .errorCode(800)
                 .message(String.valueOf(translate))

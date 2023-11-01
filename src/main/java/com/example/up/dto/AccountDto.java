@@ -18,7 +18,6 @@ public class AccountDto extends AbstractDto {
 
     private Long accountNumber;
     private Long balance;
-    private User user;
     private Card card;
     private List<Transaction> transactions;
 }
